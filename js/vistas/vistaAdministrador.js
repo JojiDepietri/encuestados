@@ -19,13 +19,18 @@ VistaAdministrador.prototype = {
   inicializar: function() {
     //llamar a los metodos para reconstruir la lista, configurar botones y validar formularios
     validacionDeFormulario();
+    this.reconstruirLista();
+    this.configuracionDeBotones();
   },
 
   construirElementoPregunta: function(pregunta){
     var contexto = this;
-    var nuevoItem;
-    //completar
-    //asignar a nuevoitem un elemento li con clase "list-group-item", id "pregunta.id" y texto "pregunta.textoPregunta"
+    //completar asignar a nuevoitem un elemento li con clase "list-group-item", id "pregunta.id" y texto "pregunta.textoPregunta"
+    var nuevoItem = $('<li/>', {
+      id: pregunta.id,
+      class: 'list-group-item',
+      text: pregunta.textoPregunta
+    });
     var interiorItem = $('.d-flex');
     var titulo = interiorItem.find('h5');
     titulo.text(pregunta.textoPregunta);
@@ -35,6 +40,8 @@ VistaAdministrador.prototype = {
     nuevoItem.html($('.d-flex').html());
     return nuevoItem;
   },
+
+  
 
   reconstruirLista: function() {
     var lista = this.elementos.lista;
