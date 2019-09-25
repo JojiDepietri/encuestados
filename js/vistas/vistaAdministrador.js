@@ -11,9 +11,15 @@ var VistaAdministrador = function(modelo, controlador, elementos) {
   this.modelo.preguntaAgregada.suscribir(function() {
     contexto.reconstruirLista();
   });
+  this.modelo.preguntaEditada.suscribir(function() {
+    contexto.reconstruirLista();
+  });
   this.modelo.preguntaEliminada.suscribir(function() {
     contexto.reconstruirLista();
-  })
+  });
+  this.modelo.preguntasBorradas.suscribir(function() {
+    contexto.reconstruirLista();
+  });
 };
 
 
@@ -21,9 +27,9 @@ VistaAdministrador.prototype = {
   //lista
   inicializar: function() {
     //llamar a los metodos para reconstruir la lista, configurar botones y validar formularios
-    validacionDeFormulario();
     this.reconstruirLista();
     this.configuracionDeBotones();
+    validacionDeFormulario();
   },
 
   construirElementoPregunta: function(pregunta){
@@ -43,8 +49,6 @@ VistaAdministrador.prototype = {
     nuevoItem.html($('.d-flex').html());
     return nuevoItem;
   },
-
-  
 
   reconstruirLista: function() {
     var lista = this.elementos.lista;
@@ -78,11 +82,22 @@ VistaAdministrador.prototype = {
       contexto.controlador.agregarPregunta(value, respuestas);
     });
 
+    //asociar el resto de los botones a eventos
+    e.botonEditarPregunta.click(function() {
+      var preguntaEditada = prompt('Ingresar el nuevo nombre de la pregunta');
+      var id = parseInt($('.list-group-item.active').attr('id'));
+      contexto.controlador.editarPregunta(preguntaEditada, id);
+    });
+
     e.botonBorrarPregunta.click(function() {
       var id = parseInt($('.list-group-item.active').attr('id'));
       contexto.controlador.borrarPregunta(id);
     });
-    //asociar el resto de los botones a eventos
+
+    e.borrarTodo.click(function() {
+      contexto.controlador.borrarTodo();
+    });
+
   },
 
   limpiarFormulario: function(){
