@@ -11,6 +11,7 @@ var vistaAdmin = new VistaAdministrador(modelo, new Controlador(modelo), {
   'muestraDeRespuestas': $('.panel-body')
 });
 vistaAdmin.inicializar();
+
 var vistaUsuario = new VistaUsuario(modelo, new Controlador(modelo), {
   'listaPreguntas': $('#preguntas'),
   'botonAgregar': $('#agregarBoton'),
